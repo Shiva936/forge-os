@@ -70,7 +70,7 @@ Planning and normalization happen **inside one command**: `/plan -vX`. There is 
 
 ## Commands (explicit arguments only)
 
-Most commands **must** receive an explicit target. If the argument is missing: **stop and ask** — never infer version or scope. **Exception:** **`/init`** takes no arguments (see **`commands/init.md`**).
+Most commands **must** receive an explicit target. If the argument is missing: **stop and ask** — never infer version or scope. **Exceptions:** **`/init`** takes no arguments (see **`commands/init.md`**). **`/p`** with no arguments lists **`projects/`** top-level dirs only (see **`commands/p.md`**).
 
 **Runtime bootstrap (all commands):** Start each command by refreshing and reading `/.forge/config.json` via `/.forge/scripts/refresh_runtime_config.py` (using repo `.venv`). Treat this file as runtime capability cache only; never as command/script storage.
 
@@ -86,6 +86,7 @@ Most commands **must** receive an explicit target. If the argument is missing: *
 | `/release-check` | `-v3`, ... | **Cumulative** validation: `release-v0` ... `release-vX` vs current system |
 | `/guard` | `task-004`, `plan-v1`, ... | Hard stop if execution laws would be violated |
 | `/test` | **`win`** \| **`unix`**, then **`task-001`**, **`forge-scripts`**, … | **`/test win …`** / **`/test unix …`** — **`.venv`** Python only; see `commands/test.md` |
+| `/p` | **`example-app`**, **`example-app,other-app`**, **`clear`**, or *(none to list)* | Bind this chat to **`projects/<name>/`** (comma-separated union); product edits/installs/builds stay under those roots until **`/p clear`** or a new **`/p`**; see `commands/p.md` |
 
 Read the canonical wording in each file under `commands/`.
 
@@ -123,6 +124,7 @@ Full rules: `rules/forge-scripts.mdc`.
 
 - Pass **explicit** `-vX` for planning and release-check.
 - Pass **explicit** task or milestone for build, validate, guard.
+- For application work under **`projects/`**, run **`/p <name>`** (or **`/p a,b`**) so the session’s product scope is explicit; use **`/p clear`** when you need repo-wide edits again.
 - Never rely on "current context" or implicit "latest" unless your team has a separate written convention (this repo does not).
 
 ### 2. Run `/plan -vX` as the single front door for a release line
@@ -238,7 +240,7 @@ When in doubt, open `rules/architecture.mdc`, `rules/anti-patterns.mdc`, and `ru
 | Cumulative release gate | `commands/release-check.md` |
 | Hard-stop guard semantics | `commands/guard.md` |
 | Always-on laws | `rules/*.mdc` (includes `python-runtime.mdc`, `forge-scripts.mdc`, `sandbox-projects.mdc`) |
-| Project sandbox (`projects/`) | `rules/sandbox-projects.mdc`, `skills/sandbox-execution/SKILL.md` |
+| Project sandbox (`projects/`) | **`/p`**, `commands/p.md`, `rules/sandbox-projects.mdc`, `skills/sandbox-execution/SKILL.md` |
 | Procedure detail | `skills/*/SKILL.md` |
 | Agent behavior contract | `subagents/*.md` |
 

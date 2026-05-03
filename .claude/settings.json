@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "disableAutoMode": "disable",
+  "permissions": {
+    "defaultMode": "default",
+    "disableBypassPermissionsMode": "disable",
+    "allow": [
+      "Bash(.venv/Scripts/python.exe *)",
+      "Bash(.venv/Scripts/pip.exe *)",
+      "Bash(./.venv/bin/python *)",
+      "Bash(./.venv/bin/pip *)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .forge/scripts/setup_forge_venv.ps1 *)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File .forge/scripts/*.ps1 *)",
+      "Bash(chmod +x .forge/scripts/*.sh)",
+      "Bash(./.forge/scripts/setup_forge_venv.sh *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git rev-parse *)",
+      "Bash(* --version)",
+      "Bash(* --help *)"
+    ],
+    "ask": [
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git cherry-pick *)",
+      "Bash(docker *)",
+      "Bash(wsl *)",
+      "Bash(npm *)",
+      "Bash(pnpm *)",
+      "Bash(yarn *)",
+      "Bash(cargo *)",
+      "Bash(go *)",
+      "Bash(pytest *)",
+      "Bash(python *)",
+      "Bash(py *)",
+      "Bash(pip *)",
+      "PowerShell(*)"
+    ],
+    "deny": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf $HOME)",
+      "Bash(diskutil *)",
+      "Bash(mkfs.*)",
+      "Bash(dd *)",
+      "Bash(shred *)",
+      "Bash(format *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(//**/.ssh/**)"
+    ]
+  },
+  "env": {
+    "FORGE_OS": "1",
+    "FORGE_PYTHON_POLICY": "repo-.venv-only-for-forge-scripts"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse_forge_launch.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "& \"$env:CLAUDE_PROJECT_DIR\\.claude\\hooks\\pretooluse_forge_launch.ps1\""
+          }
+        ]
+      }
+    ]
+  }
+}

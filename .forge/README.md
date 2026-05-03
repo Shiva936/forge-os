@@ -1,31 +1,72 @@
 # `.forge/` — release and plan truth
 
-This directory holds **requirement intake, normalized scratch, canonical releases, execution plans, and deterministic scripts** for **Forge**. It is the on-disk partner to **`.cursor/`** commands (`/plan`, `/build`, etc.).
+This directory holds **requirement intake, normalized scratch, canonical releases, execution plans, and deterministic scripts** for **Forge**. It is the on-disk partner to **both** execution interfaces:
 
-**Harness vs product:** This repository is the **engineering workflow** (rules, `/.forge/`, scripts). The **application or system you ship** is a separate concern—name and stack can change over time. Drive that work through this pipeline; implement it under **`projects/`** (separate tree and usually its own Git history), not by treating this repo as the product codebase.
+* **Cursor** — **`.cursor/commands/`** (`/plan`, `/build`, `/test`, …)
+* **Claude Code** — **`.claude/commands/`** (same procedures; see **`.claude/README.md`**)
 
-**Python:** Scripts under **`scripts/`** expect a repository virtual environment at the repo root (**`.venv/`**). Do not use system Python for them. On a fresh clone, run Cursor **`/init`** or the setup scripts (see **root `README.md`**, **`requirements-forge.txt`**, and **`.cursor/commands/init.md`**) so **`requirements-forge.txt`** is installed into **`.venv`**.
+**One pipeline:** there is **no** Cursor-only or Claude-only fork of releases, changelog, or plans. **Normative laws** remain in **`.cursor/rules/*.mdc`**.
 
-**Scope boundary:** `/.forge/scripts/` is only for Forge harness automation (requirements normalization, release/changelog helpers, planning support). Project-specific build/test scripts must live under `projects/<project>/scripts/`, and their tracking/index belongs in `projects/<project>/README.md`.
-Project-specific script outputs (logs, test captures, temporary exports) must be written under `projects/<project>/tmp/` and ignored from Git.
+---
 
-**Git:** Parts of **`.forge/`** are listed in **`.gitignore`** (see repo root); clones may not ship every artifact by default — align tracking with your team. The **`.venv/`** directory is gitignored and is never committed.
+## Harness vs product
 
-**Sandbox:** All **built projects** (app dependencies, installs, experimental trees) MUST live under **`<repo-root>/projects/`** only — see **`.cursor/rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**. Root **`.venv`** is **Forge tooling only** (`requirements-forge.txt`, `.forge/scripts`), not for arbitrary applications.
+This repository is the **engineering workflow** (rules, **`.forge/`**, scripts). The **application or system you ship** is a separate concern; drive it through this pipeline and implement it under **`projects/`** (separate tree, usually its own Git history and **gitignored** under **`projects/*`** here). Do not treat forge-os as the product codebase unless a task explicitly says otherwise.
+
+---
+
+## Python and `.venv`
+
+Scripts under **`scripts/`** expect a repository virtual environment at the repo root (**`.venv/`**). Do not use system Python for them.
+
+On a fresh clone:
+
+* **Cursor:** **`/init`** — **`.cursor/commands/init.md`**
+* **Claude Code:** same flow — **`.claude/commands/init.md`**; session charter **`.claude/CLAUDE.md`**
+
+Also: **root `README.md`**, **`requirements-forge.txt`**, and **`.forge/scripts/setup_forge_venv.*`**.
+
+---
+
+## Scope boundary for `scripts/`
+
+**`/.forge/scripts/`** is **only** for Forge harness automation (requirements normalization, release/changelog helpers, planning support, **Claude Code `PreToolUse` policy** — **`claude_pretooluse_forge.py`**). Project-specific build/test scripts must live under **`projects/<project>/scripts/`**, documented in **`projects/<project>/README.md`**. Project-local outputs (logs, captures, temp exports) go under **`projects/<project>/tmp/`** and stay out of Git.
+
+Full script index: **`scripts/README.md`**.
+
+---
+
+## Git and tracking
+
+Parts of **`.forge/`** are **gitignored** at the repo root (see **`.gitignore`**): typically **`tmp/`**, **`requirements/*`**, **`releases/*`**, **`plans/*`**, and **`.forge/config.json`**, with **`.gitkeep`** exceptions where the repo keeps empty anchors. Clones may not ship every generated artifact — align tracking with your team. **`.venv/`** is never committed.
+
+---
+
+## Sandbox
+
+All **built projects** (app dependencies, installs, experimental trees) MUST live under **`<repo-root>/projects/`** only — **`.cursor/rules/sandbox-projects.mdc`**, **`.cursor/skills/sandbox-execution/SKILL.md`** (Claude mirror: **`.claude/skills/sandbox-execution/`**). Root **`.venv`** is **Forge tooling only** (`requirements-forge.txt`, **`.forge/scripts/`**), not for arbitrary applications.
+
+---
 
 ## Layout
 
 | Path | Role |
 |------|------|
 | **`requirements/requirements-vX/`** | Raw inputs (e.g. DOCX) per version |
-| **`tmp/`** | Normalized markdown + **`parsed_index.json`** — ephemeral vs **`release-vX.md`** |
-| **`releases/`** | **`release-vX.md`** (canonical truth) and **`changelog.json`** (append-only ledger) |
+| **`tmp/`** | Normalized markdown + **`parsed_index.json`** — scratch only; not a planning source for durable **`plan-vX/`** |
+| **`releases/`** | **`release-vX.md`** (canonical synthesis) and **`changelog.json`** (**sole** changelog; **append-only**) |
 | **`plans/plan-vX/`** | Execution plans derived **only** from **`releases/release-vX.md`** |
-| **`scripts/`** | Venv Python, venv setup (`setup_forge_venv.*`), helpers (normalize, changelog, previews) — see **`scripts/README.md`** |
+| **`scripts/`** | Venv Python, venv setup, normalize/changelog/plan helpers — **`scripts/README.md`** |
+
+---
+
 ## Pipeline (mandatory order)
 
 ```text
-requirements -> tmp -> releases -> plans -> build
+requirements -> tmp -> releases -> plans -> build -> validate -> review -> release-check
 ```
 
-Details and guardrails: **`.cursor/README.md`**, **`.cursor/commands/plan.md`**, **`.cursor/commands/init.md`** (environment setup), **`.cursor/rules/sandbox-projects.mdc`** (sandbox under **`projects/`**), **`.cursor/rules/architecture.mdc`**, **`.cursor/rules/forge-scripts.mdc`**.
+* **`/plan -vX`** owns **normalization + release + plan generation** in one command (no separate normalize command).
+* **Durable planning input** for **`plans/plan-vX/`** is **`releases/release-vX.md` only** — not raw **`requirements/`** or **`tmp/`** text.
+
+**Where to read next:** **root `README.md`**, **`.cursor/README.md`**, **`.claude/README.md`**, **`.cursor/commands/plan.md`**, **`.cursor/commands/init.md`**, **`.cursor/rules/sandbox-projects.mdc`**, **`.cursor/rules/architecture.mdc`**, **`.cursor/rules/forge-scripts.mdc`**.
