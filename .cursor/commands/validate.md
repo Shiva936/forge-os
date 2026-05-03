@@ -41,6 +41,15 @@ Never silently choose validation scope.
 
 Validation truth must remain explicit.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/validate`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use runtime config hints to ensure validation commands run in supported host/WSL/tooling context.
+
 ## Your Task
 
 Validate reality.

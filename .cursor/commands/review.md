@@ -41,6 +41,15 @@ Never silently choose review scope.
 
 Review truth must remain explicit.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/review`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use runtime config hints as context only; review conclusions still require plan/release/code evidence.
+
 ## Your Task
 
 Review planning quality and architecture correctness.

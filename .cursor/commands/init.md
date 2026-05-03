@@ -4,6 +4,13 @@ Initialize the **Forge Python environment** at the repository root: create **`.v
 
 This command has **no version arguments**. Run **`/init`** once per clone (or after a broken venv).
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/init`, read `/.forge/config.json` when present for host/runtime hints. If missing, proceed with setup and create runtime cache afterward using:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
 ## Mandatory execution flow
 
 1. **Working directory:** repository root (`forge-os` / this repo’s root).

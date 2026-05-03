@@ -30,6 +30,15 @@ ask explicitly for task, milestone, or plan target
 
 Never silently choose guard scope.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/guard`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use runtime config hints as part of execution context evidence for Stop/Proceed decisions.
+
 ## Your Task
 
 Stop unsafe execution before implementation damage occurs.

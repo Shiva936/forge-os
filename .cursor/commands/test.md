@@ -13,7 +13,7 @@ The repository’s published scope is **Forge** (`.cursor/` + `.forge/`). Do not
 | Argument | Allowed values | Meaning |
 |----------|----------------|--------|
 | **environment** | `win` | Run on the **Windows host** using the repo **`.venv`** Python only. |
-| **environment** | `unix` | Run on a **Unix-like** environment (Linux, macOS, or **WSL** on Windows): repo **`.venv`** Python only. |
+| **environment** | `unix` | Run on a **Unix-like** environment (Linux, macOS, or **WSL** on Windows): repo **`.venv`** Python only. On Windows, use **WSL when available**. |
 | **target** | `task-001`, `forge-scripts`, … | Scope from **`.forge/plans/plan-vX/tasks/`**, or **`forge-scripts`** to smoke-test **`.forge/scripts/*.py`**. |
 
 ## Examples
@@ -37,6 +37,15 @@ ask for both in order: **`win` or `unix`**, then **target**
 
 Never silently choose environment or scope.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/test`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+For `unix` on Windows, use config hint `wsl_available` to decide WSL execution path; if unavailable, report explicitly.
+
 ## Mapping target → commands
 
 Use **only** the repository **`.venv`** interpreter (see **`.cursor/rules/python-runtime.mdc`**).
@@ -56,6 +65,7 @@ Resolve **`task-XXX`** against **`.forge/plans/plan-vX/tasks/`**. Run checks tha
 
 * **`win`:** Windows paths and shells.
 * **`unix`:** use when verification needs POSIX paths, shell semantics, or cross-host parity with Linux/macOS/WSL.
+* On **Windows hosts**, `unix` means: **run in WSL if available**. If WSL is unavailable, report that explicitly and do not claim Unix parity from a Windows-only run.
 
 **Evidence label:** record **environment**, **target**, exact commands, and output (pass/fail).
 

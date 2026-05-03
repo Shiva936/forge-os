@@ -72,12 +72,15 @@ Planning and normalization happen **inside one command**: `/plan -vX`. There is 
 
 Most commands **must** receive an explicit target. If the argument is missing: **stop and ask** — never infer version or scope. **Exception:** **`/init`** takes no arguments (see **`commands/init.md`**).
 
+**Runtime bootstrap (all commands):** Start each command by refreshing and reading `/.forge/config.json` via `/.forge/scripts/refresh_runtime_config.py` (using repo `.venv`). Treat this file as runtime capability cache only; never as command/script storage.
+
 | Command | Typical args | What it does |
 |---------|----------------|---------------|
 | `/init` | *(none)* | Create **`.venv`** at repo root and **`pip install -r requirements-forge.txt`** (see **`commands/init.md`**) |
 | `/plan` | `-v0`, `-v1`, `-vX` | Parse requirements -> normalize to `tmp` -> write `release-vX.md` -> append `changelog.json` -> generate `plan-vX/` **from release file only** |
 | `/build` | `task-001`, `milestone-2`, ... | Execute **one** scoped task from the active plan |
 | `/auto-build` | `task-001`, `milestone-2`, `plan-v0`, ... | Run autonomous Build->Test->Validate->Refine/Fix loops with cumulative validation up to target scope (task deps, prior milestones, or release v0->vX), until success/GO, guardrail stop, or manual stop |
+| `/auto-plan` | `-v0`, `-v1`, `-vX` | Run autonomous planning for one explicit version only (`requirements-vX -> release-vX -> plan-vX`), with normalize + integrity checks; no cross-version edits |
 | `/validate` | `task-001`, `release-v0`, `plan-v1`, ... | Evidence-based validation (not "tests passed") |
 | `/review` | `plan-v0`, ... | Review dependency order, boundaries, contracts, rollback |
 | `/release-check` | `-v3`, ... | **Cumulative** validation: `release-v0` ... `release-vX` vs current system |
@@ -230,6 +233,7 @@ When in doubt, open `rules/architecture.mdc`, `rules/anti-patterns.mdc`, and `ru
 | Persisted `/plan` helpers (normalize, changelog) | `.forge/scripts/` + `rules/forge-scripts.mdc` |
 | Run the exact `/plan` pipeline | `commands/plan.md` |
 | Run autonomous execution pipeline | `commands/auto-build.md` |
+| Run autonomous planning pipeline (single version) | `commands/auto-plan.md` |
 | See build vs validation expectations | `commands/build.md`, `commands/validate.md` |
 | Cumulative release gate | `commands/release-check.md` |
 | Hard-stop guard semantics | `commands/guard.md` |

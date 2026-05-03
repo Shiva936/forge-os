@@ -34,3 +34,11 @@ Forge Python packages (e.g. **`markitdown[docx]`** for DOCX normalization) are l
 | **`.cursor/`** | Slash commands, `rules/`, `skills/`, `subagents/` |
 | **`.forge/`** | `requirements/`, `tmp/`, `releases/`, `plans/`, `scripts/` |
 | **`projects/`** | Sandbox for application builds and deps; see **`rules/sandbox-projects.mdc`**; contents under **`projects/*`** typically gitignored |
+
+## Runtime config cache
+
+- `/.forge/config.json` is a **runtime-execution config cache** for Forge automation (host/WSL/docker/rancher/venv availability and related runtime hints).
+- It is **not** a command/script store and should not encode executable procedures.
+- It is intentionally **gitignored** and may evolve over time; autonomous flows may add new keys when needed for runtime detection.
+- Refresh it with: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .` (Windows) or `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .` (Unix).
+- If `/.forge/config.json` is missing, refresh script bootstraps it automatically.

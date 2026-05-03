@@ -3,6 +3,12 @@
 .forge/tmp/*
 .forge/releases/*
 .forge/plans/*
-
+!.forge/releases/.gitkeep
+!.forge/requirements/requirements-v0/.gitkeep
+!.forge/plans/plan-v0/.gitkeep
+.forge/scripts/__pycache__/
+# Runtime-only local capability cache (autonomously extensible keys).
+.forge/config.json
 # Sandbox: application builds/deps under projects/ stay local (keep directory via .gitkeep)
 projects/*
+!projects/.gitkeep

@@ -31,6 +31,15 @@ ask explicitly for target version
 Never silently infer release boundaries.
 Version truth must remain explicit.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before running `/plan`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use config values only as runtime capability hints (`host_os`, `wsl_available`, docker/rancher, `.venv` availability). Do not store runnable procedures in this file.
+
 ## Mandatory Execution Flow
 
 The `/plan` command owns BOTH normalization and planning.
@@ -53,6 +62,8 @@ For `/plan -vX`, run this exact sequence:
 5. Validate contradictions and unresolved conflicts
 6. Append entry to `/.forge/releases/changelog.json` (append-only) (prefer `.forge/scripts/append_changelog_entry.py` when applicable)
 7. Generate `/.forge/plans/plan-vX/` from `release-vX.md` only
+8. Normalize generated outputs to avoid append/duplication drift (prefer `.forge/scripts/normalize_plan_outputs.py --version vX`)
+9. Validate plan integrity before completion (prefer `.forge/scripts/validate_plan_integrity.py --version vX`)
 
 ## Hard Constraints
 
@@ -81,6 +92,7 @@ Generate this deterministic plan structure exactly:
 * `05_RELEASE_CRITERIA.md`
 * `06_ROLLBACK_STRATEGY.md`
 * `07_ESCALATION_RULES.md`
+* `08_STABILITY_TRACKER.md`
 * `tasks/TASK-001.md` ... `tasks/INDEX.md`
 * `contracts/API_CONTRACTS.md`
 * `contracts/FAILURE_CONTRACTS.md`
@@ -96,6 +108,8 @@ Generate this deterministic plan structure exactly:
 
 Max folder depth is 2.
 Plans must never contain changelog files.
+Plan and release markdown must not contain duplicate top-level canonical headers.
+`tasks/INDEX.md` must not reference missing `TASK-*.md` files.
 
 ## Final Rule
 

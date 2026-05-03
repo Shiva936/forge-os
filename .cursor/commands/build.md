@@ -42,6 +42,15 @@ Never silently choose execution scope.
 
 Execution truth must remain explicit.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/build`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use the runtime config only for execution capability checks (OS/WSL/docker/rancher/venv hints).
+
 ## Your Task
 
 Execute only approved planned work.

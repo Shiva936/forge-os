@@ -57,6 +57,15 @@ Never silently infer release boundaries.
 
 Release truth must remain explicit.
 
+## Runtime config bootstrap (mandatory first step)
+
+Before `/release-check`, refresh and read `/.forge/config.json`:
+
+- Windows: `.\.venv\Scripts\python.exe .forge\scripts\refresh_runtime_config.py --repo-root .`
+- Unix: `./.venv/bin/python .forge/scripts/refresh_runtime_config.py --repo-root .`
+
+Use runtime config hints to ensure cumulative checks run in a supported environment.
+
 ## Your Task
 
 Validate cumulative system truth.
