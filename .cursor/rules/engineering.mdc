@@ -19,3 +19,4 @@ alwaysApply: true
 * Rollback safety is mandatory for risky changes
 * Guardrails must stop unsafe execution
 * All Python for this repo runs inside `.venv` only (see `python-runtime.mdc`)
+* If a bug/fix attempt fails more than 2-3 times, escalate to temporary instrumentation (targeted logs/prints/debug probes), capture concrete failure evidence, then remove instrumentation after the fix is validated

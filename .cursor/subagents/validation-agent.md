@@ -20,6 +20,7 @@ No assumptions.
 * failure handling
 * rollback safety
 * product correctness
+* if repeated fixes (2-3 attempts) were needed, verify instrumentation evidence exists for the diagnosed break point and that temporary debug additions were removed after validation
 
 ## Final Principle
 

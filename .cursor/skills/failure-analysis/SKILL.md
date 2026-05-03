@@ -24,6 +24,7 @@ Investigate first.
 5. Identify blast radius and affected systems
 6. Define safe correction path and rollback path
 7. Check whether failure is caused by execution-law violation (version guessing, wrong planning source, changelog mutation)
+8. When a fix loop has already failed 2-3 times, require temporary instrumentation (logs/prints/debug probes) before any further fix attempt
 
 ## Required Output
 
@@ -47,6 +48,7 @@ Produce:
 * never hide uncertainty
 * never mark issue resolved without validation
 * never optimize for fast patching over correct resolution
+* never proceed past 2-3 failed fix attempts without instrumentation evidence that localizes the breakage point
 
 ## Final Rule
 

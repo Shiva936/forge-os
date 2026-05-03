@@ -2,6 +2,9 @@
 
 Deterministic, repeatable commands for Forge documentation and validation flows.
 
+Scope: this folder is for Forge harness automation only. Project-specific build/test scripts belong under `projects/<project>/scripts/` and should be documented in that project's `README.md`.
+Project-specific script outputs must go to `projects/<project>/tmp/` (for example logs, test result snapshots, temporary generated reports) and be excluded from Git tracking.
+
 ## Prerequisites
 
 **Python virtualenv:** Forge **`*.py`** scripts expect **`/.venv`** at the repository root, with packages from **`requirements-forge.txt`** installed.

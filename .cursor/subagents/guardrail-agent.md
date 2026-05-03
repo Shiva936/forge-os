@@ -21,6 +21,7 @@ Enforce hard execution laws.
 * rollback-unsafe execution
 * architecture boundary violations
 * application dependency trees, product builds, or app-level installs at repository root — must use **`projects/`** (see **`rules/sandbox-projects.mdc`**)
+* repeated blind patching: if the same issue has 2-3 failed fix attempts without instrumentation evidence, block further speculative edits until temporary debugging evidence is collected
 
 ## Final Principle
 

@@ -6,6 +6,9 @@ This directory holds **requirement intake, normalized scratch, canonical release
 
 **Python:** Scripts under **`scripts/`** expect a repository virtual environment at the repo root (**`.venv/`**). Do not use system Python for them. On a fresh clone, run Cursor **`/init`** or the setup scripts (see **root `README.md`**, **`requirements-forge.txt`**, and **`.cursor/commands/init.md`**) so **`requirements-forge.txt`** is installed into **`.venv`**.
 
+**Scope boundary:** `/.forge/scripts/` is only for Forge harness automation (requirements normalization, release/changelog helpers, planning support). Project-specific build/test scripts must live under `projects/<project>/scripts/`, and their tracking/index belongs in `projects/<project>/README.md`.
+Project-specific script outputs (logs, test captures, temporary exports) must be written under `projects/<project>/tmp/` and ignored from Git.
+
 **Git:** Parts of **`.forge/`** are listed in **`.gitignore`** (see repo root); clones may not ship every artifact by default — align tracking with your team. The **`.venv/`** directory is gitignored and is never committed.
 
 **Sandbox:** All **built projects** (app dependencies, installs, experimental trees) MUST live under **`<repo-root>/projects/`** only — see **`.cursor/rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**. Root **`.venv`** is **Forge tooling only** (`requirements-forge.txt`, `.forge/scripts`), not for arbitrary applications.

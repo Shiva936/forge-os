@@ -8,6 +8,7 @@ alwaysApply: true
 
 - Global execution flow is mandatory: requirements -> tmp -> releases -> plans -> build -> validate -> review -> release-check
 - Always follow implementation loop: Build -> Test -> Validate -> Refine/Fix -> Repeat
+- If Refine/Fix repeats fail more than 2-3 iterations on the same issue, switch to instrumentation-first debugging (temporary logs/prints/probes), gather evidence, and continue the loop only after root cause is identified
 - Do not skip steps
 - Do not stop at build
 - Do not stop at passing tests

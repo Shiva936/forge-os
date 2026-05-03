@@ -7,6 +7,7 @@ alwaysApply: true
 # forge-scripts.mdc
 
 * Repeatable shell/Python steps used by `/plan`, normalization, changelog updates, or doc tooling MUST live under **`/.forge/scripts/`** when they encode deterministic behavior (paths, JSON shapes, CLI contracts).
+* Scope rule: **root `/.forge/scripts/` is only for Forge harness automation** (planning/release/doc tooling). **Project-specific build/test helpers** must live under **`projects/<project>/scripts/`** (for example `projects/<project>/scripts/`), not in project-local `.forge/` trees.
 * Before running **ad-hoc** one-off Python or shell for the **same** job, **check** `/.forge/scripts/` and `.forge/scripts/README.md` for an existing script.
 * If no script exists for a repeatable step you need **now**: **create** it under `/.forge/scripts/` (single-purpose file, clear name), wire it to **`.venv`** Python per `python-runtime.mdc`, document usage in `.forge/scripts/README.md`, **then** invoke it. Never leave the only copy of that logic in chat or ephemeral terminal history alone.
 * Prefer invoking **`.forge/scripts/*.py`** via repository root and venv, e.g. Windows `.venv\Scripts\python.exe .forge\scripts\<name>.py …`, Unix `./.venv/bin/python .forge/scripts/<name>.py …`.

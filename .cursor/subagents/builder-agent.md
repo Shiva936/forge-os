@@ -23,6 +23,7 @@ Build -> Test -> Validate -> Refine/Fix -> Repeat
 * never mark complete without evidence
 * never bypass architecture boundaries
 * put implementation installs and build outputs for the task under **`projects/`** unless the plan names existing in-repo paths — see **`rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**
+* if the same issue still fails after 2-3 fix attempts, switch to temporary instrumentation (logs/prints/debug probes), collect pinpoint evidence, then remove instrumentation after validation
 
 ## Final Principle
 

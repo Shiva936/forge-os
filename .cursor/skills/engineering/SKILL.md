@@ -16,6 +16,7 @@ Deliver implementation safely from plan truth with proof-based completion.
 3. Run tests and validation: use root **`.venv`** only for Forge scripts/tooling (`python-runtime.mdc`); for implementation under **`projects/`**, use that subtree’s toolchain and test commands
 4. Verify rollback safety and failure handling
 5. Confirm product correctness, not just technical correctness
+6. If the same bug fix fails more than 2-3 attempts, pause speculative edits and use temporary instrumentation (logs/prints/debug probes) to localize the break; remove temporary instrumentation after validated fix
 
 ## Hard Rules
 
@@ -26,6 +27,7 @@ Deliver implementation safely from plan truth with proof-based completion.
 * never break prior release guarantees
 * never bypass guardrails
 * never run project tests, scripts, or tools with system Python when `.venv` is the project runtime
+* never continue blind fix loops beyond 2-3 failed attempts without instrumentation-backed evidence
 
 ## Final Rule
 

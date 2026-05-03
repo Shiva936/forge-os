@@ -77,6 +77,7 @@ Most commands **must** receive an explicit target. If the argument is missing: *
 | `/init` | *(none)* | Create **`.venv`** at repo root and **`pip install -r requirements-forge.txt`** (see **`commands/init.md`**) |
 | `/plan` | `-v0`, `-v1`, `-vX` | Parse requirements -> normalize to `tmp` -> write `release-vX.md` -> append `changelog.json` -> generate `plan-vX/` **from release file only** |
 | `/build` | `task-001`, `milestone-2`, ... | Execute **one** scoped task from the active plan |
+| `/auto-build` | `task-001`, `milestone-2`, `plan-v0`, ... | Run autonomous Build->Test->Validate->Refine/Fix loops with cumulative validation up to target scope (task deps, prior milestones, or release v0->vX), until success/GO, guardrail stop, or manual stop |
 | `/validate` | `task-001`, `release-v0`, `plan-v1`, ... | Evidence-based validation (not "tests passed") |
 | `/review` | `plan-v0`, ... | Review dependency order, boundaries, contracts, rollback |
 | `/release-check` | `-v3`, ... | **Cumulative** validation: `release-v0` ... `release-vX` vs current system |
@@ -189,7 +190,9 @@ Skills are invoked by commands and subagents; follow their `SKILL.md` files lite
 ### Post-incident or regression
 
 1. **`failure-analysis`** mindset: root cause, blast radius, rollback path.
-2. Fix with minimal scope; **`/validate`** the same target plus regression surfaces.
+2. If the same issue fails after **2-3** fix attempts, switch to **instrumentation-first debugging** (temporary logs/prints/probes) to pinpoint the break.
+3. Remove temporary instrumentation after validated fix; keep evidence in validation output.
+4. Fix with minimal scope; **`/validate`** the same target plus regression surfaces.
 
 ---
 
@@ -226,6 +229,7 @@ When in doubt, open `rules/architecture.mdc`, `rules/anti-patterns.mdc`, and `ru
 | Set up **`.venv`** and Forge packages (`markitdown`, etc.) | `commands/init.md`, root **`requirements-forge.txt`**, `.forge/scripts/setup_forge_venv.ps1` / `setup_forge_venv.sh` |
 | Persisted `/plan` helpers (normalize, changelog) | `.forge/scripts/` + `rules/forge-scripts.mdc` |
 | Run the exact `/plan` pipeline | `commands/plan.md` |
+| Run autonomous execution pipeline | `commands/auto-build.md` |
 | See build vs validation expectations | `commands/build.md`, `commands/validate.md` |
 | Cumulative release gate | `commands/release-check.md` |
 | Hard-stop guard semantics | `commands/guard.md` |
