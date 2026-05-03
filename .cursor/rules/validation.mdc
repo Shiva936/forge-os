@@ -1,0 +1,17 @@
+---
+description: Validation, release truth, and completion rules
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# validation.mdc
+
+- Code existing is not completion
+- Passing tests alone is not completion
+- Validate technical correctness
+- Validate product correctness
+- Validate architecture correctness
+- Never mark work done without verification
+- Evidence is mandatory
+- Validate releases cumulatively from v0 to target
+- Reject execution when rollback safety is missing

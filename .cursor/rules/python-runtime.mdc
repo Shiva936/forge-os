@@ -1,0 +1,15 @@
+---
+description: Project Python must run only inside .venv
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# python-runtime.mdc
+
+* All Python execution for this repository MUST use the project virtual environment at **`<repo-root>/.venv/`**.
+* Never rely on system Python, global `pip`, `py launcher`, or IDE-default interpreters for repo work unless they are verified to resolve to `.venv` (assume they do not).
+* **Windows:** invoke `.\.venv\Scripts\python.exe` and `.\.venv\Scripts\pip.exe` (paths from repository root).
+* **macOS / Linux:** invoke `./.venv/bin/python` and `./.venv/bin/pip`.
+* Installing Python packages for this project: always use the venv `pip` above (or `python -m pip` with the venv interpreter).
+* Any helper script, normalization pipeline (`markitdown`, etc.), tests (`pytest`), or one-off `python -c` snippets MUST use the venv interpreter explicitly.
+* If `.venv` is missing or broken: **stop**, run **`/init`** (or **`.forge/scripts/setup_forge_venv.ps1`** / **`setup_forge_venv.sh`**) to create the venv and install **`requirements-forge.txt`**, then continue — do not bypass with system Python.

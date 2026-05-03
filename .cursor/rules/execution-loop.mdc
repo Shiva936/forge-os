@@ -1,0 +1,14 @@
+---
+description: Mandatory deterministic execution workflow
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# execution-loop.mdc
+
+- Global execution flow is mandatory: requirements -> tmp -> releases -> plans -> build -> validate -> review -> release-check
+- Always follow implementation loop: Build -> Test -> Validate -> Refine/Fix -> Repeat
+- Do not skip steps
+- Do not stop at build
+- Do not stop at passing tests
+- Done means proven done

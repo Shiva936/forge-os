@@ -1,0 +1,15 @@
+---
+description: Git and implementation safety rules
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# git-safety.mdc
+
+- Never delete stable code casually
+- Never remove previous working implementations
+- Never overwrite working code without understanding it
+- Always preserve rollback paths
+- Preserve backward compatibility unless explicitly approved
+- Never rewrite release history in changelog.json
+- Never use destructive git operations without explicit approval

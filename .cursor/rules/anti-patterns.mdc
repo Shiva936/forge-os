@@ -1,0 +1,70 @@
+﻿---
+description: Anti-pattern prevention rules
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# anti-patterns.mdc
+
+## Forbidden Planning Behaviors
+
+* Never create documentation trees without execution value
+* Never create folder forests for visual organization
+* Never mistake more folders for better planning
+* Never generate template-driven fake structure
+* Never create files that do not directly support execution
+* Never preserve conflicting legacy behavior when architecture laws change
+
+## Forbidden Version Behaviors
+
+* Never guess missing versions
+* Never silently infer release targets
+* Never merge release scopes casually
+* Never create plan versions without explicit release mapping
+* Never allow release-vX and plan-vX to drift apart
+* Never write release changelog history outside /.forge/releases/changelog.json
+* Never overwrite historical changelog entries
+
+## Forbidden Execution Behaviors
+
+* Never leave deterministic `/plan` or doc tooling logic only as throwaway terminal snippets when it should live under `/.forge/scripts/` (see `forge-scripts.mdc`)
+* Never run repo Python with system interpreters or global pip when `.venv` exists or must exist (use `.venv` only)
+* Never optimize for visible progress over validated progress
+* Never mark work complete without proof
+* Never skip rollback definition
+* Never allow dependency-unsafe execution
+* Never allow hidden regressions for convenience
+* Never allow planning before release synthesis
+
+## Forbidden Architecture Behaviors
+
+* Never bypass architecture boundaries for speed
+* Never introduce hidden coupling
+* Never perform silent architectural changes
+* Never replace correctness with convenience abstractions
+* Never create complexity that increases navigation cost
+* Never plan from requirements or tmp directly
+
+## Examples
+
+Bad:
+
+architecture/system_design/
+contracts/security_contracts/
+execution/build_order/
+
+Good:
+
+architecture/SYSTEM_DESIGN.md
+contracts/SECURITY_CONTRACTS.md
+execution/BUILD_ORDER.md
+
+## Final Rule
+
+Operational truth over documentation aesthetics.
+
+Execution clarity over visual structure.
+
+Proof over optimism.
+
+Always.

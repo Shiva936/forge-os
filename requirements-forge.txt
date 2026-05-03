@@ -1,0 +1,2 @@
+# Forge Python tooling (.venv) — install via /init or .forge/scripts/setup_forge_venv.*
+markitdown[docx]>=0.0.1

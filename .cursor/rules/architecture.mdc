@@ -1,0 +1,63 @@
+﻿---
+description: Deterministic execution architecture laws
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# architecture.mdc
+
+* Respect existing system boundaries
+
+* Never bypass architecture for convenience
+
+* Never introduce hidden coupling
+
+* Never add unnecessary abstraction early
+
+* No silent architectural changes
+
+* Preserve contracts and ownership boundaries
+
+* Version boundaries must remain explicit
+* Never silently infer release targets
+* Never merge version scopes casually
+* release-vX must map clearly to plan-vX
+* Plan generation is allowed only from /.forge/releases/release-vX.md
+* Never plan directly from requirements or tmp
+* requirements -> tmp -> releases -> plans is mandatory order
+
+* Never ignore requirement-declared stack boundaries
+
+* Preserve explicit language/runtime/protocol constraints from requirements
+
+* Prefer flat execution structures over folder fragmentation
+
+* Folders represent execution domains, not sub-thoughts
+
+* Files represent decisions, not directories
+
+* Never create deep nested folders without true execution boundaries
+* Max planning folder depth is 2
+
+* Never create template-driven documentation trees
+
+* Create only execution-required files
+
+* Reduce architecture complexity, not visual structure
+* /.forge/releases/changelog.json is the only changelog source
+* Changelog is append-only; never rewrite prior entries
+* Repeatable automation for docs flows belongs in /.forge/scripts/ (see forge-scripts.mdc)
+
+Good:
+architecture/SYSTEM_DESIGN.md
+
+Bad:
+architecture/system_design/
+
+Good:
+execution/BUILD_ORDER.md
+
+Bad:
+execution/build_order/
+
+Architecture should reduce execution cost, not increase navigation cost.

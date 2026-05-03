@@ -1,0 +1,21 @@
+---
+description: Core engineering and execution safety rules
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# engineering.mdc
+
+* Prioritize correctness over speed
+* Never modify unrelated files
+* Prefer minimal and precise changes
+* Never break working behavior without approval
+* Never skip tests
+* Fix root cause, not symptoms
+* Completion requires proof, not assumptions
+* Requirement-declared stack constraints are mandatory
+* Do not execute unplanned work
+* Do not optimize for visible progress
+* Rollback safety is mandatory for risky changes
+* Guardrails must stop unsafe execution
+* All Python for this repo runs inside `.venv` only (see `python-runtime.mdc`)

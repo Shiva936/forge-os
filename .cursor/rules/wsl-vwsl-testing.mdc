@@ -1,0 +1,14 @@
+---
+description: Forge /test uses win vs unix environments; venv Python only
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# forge-test-environments
+
+The **`/test`** command requires **two** arguments: **environment** (`win` | `unix`) then **target** (e.g. **`task-001`**, **`forge-scripts`**). See **`.cursor/commands/test.md`**.
+
+* **`/test win …`:** run on the Windows host with **`.venv`** Python only.
+* **`/test unix …`:** run on Linux, macOS, or WSL using **`.venv`** Python — use when POSIX paths or Unix semantics matter or for parity with **`win`**.
+
+Do not use system Python outside **`.venv`**. Do not treat a **`win`** run as proof of **`unix`** behavior when the task requires both.
