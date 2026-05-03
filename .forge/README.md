@@ -23,7 +23,3 @@ requirements -> tmp -> releases -> plans -> build
 ```
 
 Details and guardrails: **`.cursor/README.md`**, **`commands/plan.md`**, **`commands/init.md`** (environment setup), **`rules/architecture.mdc`**, **`rules/forge-scripts.mdc`**.
-
-## Naming note
-
-Paths were historically under **`docs/`**; canonical references now use **`.forge/`**.
