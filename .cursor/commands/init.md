@@ -27,9 +27,11 @@ This command has **no version arguments**. Run **`/init`** once per clone (or af
 * Do **not** install Forge packages with system **`pip`** or global Python for ongoing repo work.
 * After **`/init`**, all Python for this repo MUST use **`.venv`** only (`rules/python-runtime.mdc`).
 * **`requirements-forge.txt`** is the single source of truth for Forge venv packages; extend it when new script dependencies are added, then re-run **`/init`** or the setup script.
+* Root **`.venv`** is **Forge tooling only**. Application-level Python environments and other product installs belong under **`projects/`** per **`.cursor/rules/sandbox-projects.mdc`** — do not reuse **`.venv`** for sandbox apps.
 
 ## References
 
 * **`requirements-forge.txt`** — package pins / list  
 * **`.forge/scripts/README.md`** — script index  
 * **`rules/python-runtime.mdc`** — venv-only execution  
+* **`.cursor/rules/sandbox-projects.mdc`**, **`skills/sandbox-execution`** — **`projects/`** sandbox for built work  

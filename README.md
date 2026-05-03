@@ -23,6 +23,7 @@ Forge Python packages (e.g. **`markitdown[docx]`** for DOCX normalization) are l
 |--------|----------|
 | Cursor commands (`/init`, `/plan`, …), skills, rules | **`.cursor/README.md`** |
 | `.forge/` layout, pipeline, release vs plan truth | **`.forge/README.md`** |
+| Sandbox (`projects/`) | **`.cursor/rules/sandbox-projects.mdc`**, **`skills/sandbox-execution/SKILL.md`** |
 | Script-by-script usage (normalize, changelog, venv setup) | **`.forge/scripts/README.md`** |
 
 ## Repository layout (high level)
@@ -32,3 +33,4 @@ Forge Python packages (e.g. **`markitdown[docx]`** for DOCX normalization) are l
 | **`requirements-forge.txt`** | Pinned list for the repo **`.venv`** (Forge scripts, `markitdown`, etc.) |
 | **`.cursor/`** | Slash commands, `rules/`, `skills/`, `subagents/` |
 | **`.forge/`** | `requirements/`, `tmp/`, `releases/`, `plans/`, `scripts/` |
+| **`projects/`** | Sandbox for application builds and deps; see **`rules/sandbox-projects.mdc`**; contents under **`projects/*`** typically gitignored |

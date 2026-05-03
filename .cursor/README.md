@@ -157,7 +157,7 @@ For "are we safe to ship vN?" use **`/release-check -vN`**, not only "what chang
 |-------|----------------|
 | Ingest / normalize | `requirement-parser` |
 | Plan from release truth | `execution-planner` |
-| Implement | `engineering` |
+| Implement | `engineering` (+ `sandbox-execution` when installing app-level deps or builds) |
 | Review design | `architecture-review` |
 | Incidents / bugs | `failure-analysis` |
 | Ship readiness | `release-validation` |
@@ -196,6 +196,7 @@ Skills are invoked by commands and subagents; follow their `SKILL.md` files lite
 ## Anti-patterns (will burn you)
 
 - Running repo Python or `pip` outside `.venv`.
+- Installing app dependencies or doing product builds at repository root instead of **`projects/`** (see `sandbox-projects.mdc`).
 - Planning from `.forge/requirements/` or `.forge/tmp/` directly.
 - Creating `changelog.json` under `plans/` or anywhere except `.forge/releases/`.
 - Skipping **`release-vX.md`** synthesis and "going straight to tasks."
@@ -228,7 +229,8 @@ When in doubt, open `rules/architecture.mdc`, `rules/anti-patterns.mdc`, and `ru
 | See build vs validation expectations | `commands/build.md`, `commands/validate.md` |
 | Cumulative release gate | `commands/release-check.md` |
 | Hard-stop guard semantics | `commands/guard.md` |
-| Always-on laws | `rules/*.mdc` (includes `python-runtime.mdc`, `forge-scripts.mdc`) |
+| Always-on laws | `rules/*.mdc` (includes `python-runtime.mdc`, `forge-scripts.mdc`, `sandbox-projects.mdc`) |
+| Project sandbox (`projects/`) | `rules/sandbox-projects.mdc`, `skills/sandbox-execution/SKILL.md` |
 | Procedure detail | `skills/*/SKILL.md` |
 | Agent behavior contract | `subagents/*.md` |
 

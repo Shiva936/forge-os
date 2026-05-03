@@ -29,6 +29,7 @@ alwaysApply: true
 
 * Never leave deterministic `/plan` or doc tooling logic only as throwaway terminal snippets when it should live under `/.forge/scripts/` (see `forge-scripts.mdc`)
 * Never run repo Python with system interpreters or global pip when `.venv` exists or must exist (use `.venv` only)
+* Never install application-level dependencies or run product builds at repository root — use **`projects/`** only (`sandbox-projects.mdc`)
 * Never optimize for visible progress over validated progress
 * Never mark work complete without proof
 * Never skip rollback definition

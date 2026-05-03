@@ -43,6 +43,7 @@ You must detect and block:
 * contract violations
 * changelog law violations
 * hidden coupling or scope drift
+* application dependency installs or product build trees at repository root — must use **`projects/`** (see **`rules/sandbox-projects.mdc`**)
 
 ## Required Output
 

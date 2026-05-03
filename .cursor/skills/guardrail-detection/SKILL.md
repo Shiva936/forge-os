@@ -20,6 +20,7 @@ Block unsafe execution before code or planning drift occurs.
 * changelog history mutation (non-append behavior)
 * cumulative validation omissions in `/release-check`
 * unsafe rollback and boundary violations
+* application installs or product builds at repository root instead of **`projects/`** (see **`rules/sandbox-projects.mdc`**)
 
 ## Enforcement
 

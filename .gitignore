@@ -1,5 +1,8 @@
 .venv/
-.forge/requirements/
-.forge/tmp/
-.forge/releases/
-.forge/plans/
+.forge/requirements/*
+.forge/tmp/*
+.forge/releases/*
+.forge/plans/*
+
+# Sandbox: application builds/deps under projects/ stay local (keep directory via .gitkeep)
+projects/*

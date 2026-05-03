@@ -1,0 +1,46 @@
+---
+description: Built projects and app deps only under projects/; Forge .venv is tooling-only
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# sandbox-projects.mdc
+
+**Canonical Forge sandbox policy** — there is no separate `SANDBOX.md`; this file is the source of truth.
+
+## 1. Sandbox directory
+
+**`<repository-root>/projects/`** is the **only** place under forge-os for:
+
+* Application dependency installs (`npm`, `pip` into an **app** venv, `cargo` trees for products, Go modules, etc.)
+* Lockfiles and dependency trees for **those** applications
+* Experimental builds, generated subprojects, and non–Forge toolchains tied to **built work**
+
+Use subpaths such as **`projects/<name>/`** (one tree per project or parallel effort).
+
+## 2. What stays outside `projects/` (Forge-only)
+
+* **`.cursor/`** — commands, rules, skills, subagents
+* **`.forge/`** — requirements pipeline, releases, plans (per **`.gitignore`**), **`scripts/`**
+* **`<repository-root>/.venv/`** — **only** for **`requirements-forge.txt`** and **`.forge/scripts/*.py`**. Create it with **`/init`**. Do **not** use root **`.venv`** for arbitrary application development; create environments **under `projects/`** for that.
+
+## 3. Forbidden at repository root
+
+* Application **`node_modules/`**, product **`go.mod`**, product Cargo workspace roots, or **application** Python virtualenvs at forge-os root
+* Global installs (**`npm -g`**, system **`pip install`** for app dependencies) when the work belongs in a **`projects/`** tree
+
+## 4. `/build` and plan tasks
+
+Dependency installs and build artifacts for implemented tasks belong under **`projects/`** unless the task explicitly targets paths **already committed** in this repository.
+
+## 5. Integration
+
+Interact with work under **`projects/*`** through documented interfaces. Do not hard-code internal sandbox layout into **`.forge/releases`** or plans unless that coupling is an explicit requirement.
+
+## 6. Parallel work
+
+Prefer separate directories (**`projects/a/`**, **`projects/b/`**) so dependencies do not cross-contaminate.
+
+## 7. Validation
+
+Rules hold when product dependency trees and builds live under **`projects/`**, the forge-os root stays clear of app artifact directories (except Forge **`.venv`** / **`requirements-forge.txt`**), and global environments are not polluted for sandbox work.

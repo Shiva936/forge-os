@@ -47,6 +47,8 @@ Execution truth must remain explicit.
 Execute only approved planned work.
 Source of execution truth is `/.forge/plans/plan-vX/`.
 
+**Physical sandbox:** dependency installs and build artifacts for implemented work belong under **`projects/`** at the repository root unless the task explicitly targets paths already in-repo. Root **`.venv`** is **Forge tooling only** (`requirements-forge.txt`). See **`rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**.
+
 Follow strict loop:
 
 Build → Test → Validate → Refine/Fix → Repeat

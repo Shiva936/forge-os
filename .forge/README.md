@@ -6,6 +6,8 @@ This directory holds **requirement intake, normalized scratch, canonical release
 
 **Git:** Parts of **`.forge/`** are listed in **`.gitignore`** (see repo root); clones may not ship every artifact by default — align tracking with your team. The **`.venv/`** directory is gitignored and is never committed.
 
+**Sandbox:** All **built projects** (app dependencies, installs, experimental trees) MUST live under **`<repo-root>/projects/`** only — see **`.cursor/rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**. Root **`.venv`** is **Forge tooling only** (`requirements-forge.txt`, `.forge/scripts`), not for arbitrary applications.
+
 ## Layout
 
 | Path | Role |
@@ -15,11 +17,10 @@ This directory holds **requirement intake, normalized scratch, canonical release
 | **`releases/`** | **`release-vX.md`** (canonical truth) and **`changelog.json`** (append-only ledger) |
 | **`plans/plan-vX/`** | Execution plans derived **only** from **`releases/release-vX.md`** |
 | **`scripts/`** | Venv Python, venv setup (`setup_forge_venv.*`), helpers (normalize, changelog, previews) — see **`scripts/README.md`** |
-
 ## Pipeline (mandatory order)
 
 ```text
 requirements -> tmp -> releases -> plans -> build
 ```
 
-Details and guardrails: **`.cursor/README.md`**, **`commands/plan.md`**, **`commands/init.md`** (environment setup), **`rules/architecture.mdc`**, **`rules/forge-scripts.mdc`**.
+Details and guardrails: **`.cursor/README.md`**, **`.cursor/commands/plan.md`**, **`.cursor/commands/init.md`** (environment setup), **`.cursor/rules/sandbox-projects.mdc`** (sandbox under **`projects/`**), **`.cursor/rules/architecture.mdc`**, **`.cursor/rules/forge-scripts.mdc`**.

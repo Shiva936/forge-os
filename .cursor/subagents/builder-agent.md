@@ -22,6 +22,7 @@ Build -> Test -> Validate -> Refine/Fix -> Repeat
 * never execute unplanned work
 * never mark complete without evidence
 * never bypass architecture boundaries
+* put implementation installs and build outputs for the task under **`projects/`** unless the plan names existing in-repo paths — see **`rules/sandbox-projects.mdc`** and **`skills/sandbox-execution`**
 
 ## Final Principle
 

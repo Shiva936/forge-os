@@ -20,6 +20,7 @@ Enforce hard execution laws.
 * changelog mutation or wrong changelog path
 * rollback-unsafe execution
 * architecture boundary violations
+* application dependency trees, product builds, or app-level installs at repository root — must use **`projects/`** (see **`rules/sandbox-projects.mdc`**)
 
 ## Final Principle
 
