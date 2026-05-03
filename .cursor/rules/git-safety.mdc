@@ -13,4 +13,8 @@ alwaysApply: true
 - Preserve backward compatibility unless explicitly approved
 - Never rewrite release history in changelog.json
 - Never use destructive git operations without explicit approval
-- Never add **`Co-authored-by:`** lines crediting Cursor to commits; turn that off in **Cursor → Settings → Git** if the app offers it
+
+## Project commit scope (built work)
+
+- **One product per commit:** Application/product changes must stay within **exactly one** **`projects/<project>/`** subtree per commit (or per reviewable unit). Do not combine **`projects/<a>/`** and **`projects/<b>/`** in the same commit unless a task explicitly requires cross-project integration and records that scope.
+- **Directory-bound only:** Product source, dependency trees, and build artifacts for that product are committed **only** under that product's **`projects/<project>/`** path (including a nested Git repo there). Do not commit product work at forge-os root; do not mix product commits with unrelated Forge harness changes (`.cursor/`, tracked `.forge/` tooling, root docs) in the same commit when it would obscure scope or rollback—split harness vs product unless one atomic, documented change truly requires both.

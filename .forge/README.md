@@ -2,6 +2,8 @@
 
 This directory holds **requirement intake, normalized scratch, canonical releases, execution plans, and deterministic scripts** for **Forge**. It is the on-disk partner to **`.cursor/`** commands (`/plan`, `/build`, etc.).
 
+**Harness vs product:** This repository is the **engineering workflow** (rules, `/.forge/`, scripts). The **application or system you ship** is a separate concern—name and stack can change over time. Drive that work through this pipeline; implement it under **`projects/`** (separate tree and usually its own Git history), not by treating this repo as the product codebase.
+
 **Python:** Scripts under **`scripts/`** expect a repository virtual environment at the repo root (**`.venv/`**). Do not use system Python for them. On a fresh clone, run Cursor **`/init`** or the setup scripts (see **root `README.md`**, **`requirements-forge.txt`**, and **`.cursor/commands/init.md`**) so **`requirements-forge.txt`** is installed into **`.venv`**.
 
 **Git:** Parts of **`.forge/`** are listed in **`.gitignore`** (see repo root); clones may not ship every artifact by default — align tracking with your team. The **`.venv/`** directory is gitignored and is never committed.
